@@ -62,7 +62,6 @@ class UserResource extends Resource
 
                 Tables\Columns\TextColumn::make('name')->searchable()->sortable(),
                 SpatieMediaLibraryImageColumn::make('images'),
-                SpatieMediaLibraryImageColumn::make('images'),
                 Tables\Columns\TextColumn::make('email')->searchable()->sortable()->limit(10),
                 Tables\Columns\TextColumn::make('phone')->searchable()->sortable(),
     Tables\Columns\TextColumn::make('created_at')->searchable()->sortable()
