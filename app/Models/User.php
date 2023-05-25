@@ -56,5 +56,9 @@ class User extends Authenticatable implements HasMedia
      *
      * @var array<int, string>
      */
+    public function orders()
+    {
+        return $this->hasMany(Orders::class);
+    }
 
 }

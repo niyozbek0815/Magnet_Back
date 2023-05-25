@@ -24,6 +24,8 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use App\Filament\Resources\SellersResource\RelationManagers;
 use App\Filament\Resources\SellersResource\Pages\EditSellers;
 use App\Filament\Resources\SellersResource\Pages\CreateSellers;
+use App\Filament\Resources\SellersResource\RelationManagers\StoreRelationManager;
+use App\Filament\Resources\SellersResource\RelationManagers\StoresRelationManager;
 
 class SellersResource extends Resource
 {
@@ -103,7 +105,7 @@ class SellersResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            StoreRelationManager::class,
         ];
     }
 

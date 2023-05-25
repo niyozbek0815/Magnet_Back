@@ -10,10 +10,14 @@ use App\Models\Category;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CategoryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use App\Filament\Resources\CategoryResource\RelationManagers;
+use App\Filament\Resources\CategoryResource\RelationManagers\CategoriesRelationManager;
 
 class CategoryResource extends Resource
 {
@@ -25,7 +29,8 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-
+                Forms\Components\Select::make('parent_id')
+                ->relationship('parents', 'name_uz')  ->nullable(),
                 Forms\Components\TextInput::make('name_uz')
                     ->required()->autofocus()->reactive()
                     ->afterStateUpdated(function (Closure $set, $state) {
@@ -44,8 +49,8 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-                    Forms\Components\Select::make('parent_id')
-                    ->relationship('parent', 'id')  ->nullable(),
+                    SpatieMediaLibraryFileUpload::make('images'),
+
             ]);
     }
 
@@ -53,23 +58,18 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('parent.id'),
-                Tables\Columns\TextColumn::make('name_uz'),
-                Tables\Columns\TextColumn::make('name_kr'),
-                Tables\Columns\TextColumn::make('name_ru'),
-                Tables\Columns\TextColumn::make('name_en'),
-                Tables\Columns\TextColumn::make('slug'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                Tables\Columns\TextColumn::make('id')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('name_uz')->searchable()->sortable(),
+                SpatieMediaLibraryImageColumn::make('images'),
+                Tables\Columns\TextColumn::make('parents.id')->searchable()->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
@@ -78,7 +78,6 @@ class CategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
         ];
     }
 
