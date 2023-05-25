@@ -33,7 +33,7 @@ class RoleResource extends Resource
         return $form
             ->schema([
                     TextInput::make('name')->required()->maxLength(255)->unique(ignoreRecord: true),
-                    Select::make('permissions')->preload()   ->multiple()
+                    Select::make('permissions')->preload()->multiple()
                     ->relationship('permissions', 'name')->required()
             ]);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Stores;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
@@ -43,6 +44,14 @@ class Sellers  extends Authenticatable   implements HasMedia
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function store()
+    {
+        return $this->hasOne(Stores::class);
+    }
+
+
+
 }
 
 
