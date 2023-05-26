@@ -25,7 +25,9 @@ class StoresResource extends Resource
 {
     protected static ?string $model = Stores::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-view-list';
+
+    protected static ?string $navigationGroup = 'Stores Management';
 
     public static function form(Form $form): Form
     {
