@@ -19,7 +19,10 @@ class OrderStatusResource extends Resource
 {
     protected static ?string $model = OrderStatus::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-cog';
+
+    protected static ?string $navigationGroup = 'Settings Management';
+
 
     public static function form(Form $form): Form
     {

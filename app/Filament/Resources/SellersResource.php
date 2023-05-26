@@ -31,7 +31,10 @@ class SellersResource extends Resource
 {
     protected static ?string $model = Sellers::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
+    protected static ?string $navigationGroup = 'Stores Management';
+
 
     public static function form(Form $form): Form
     {
