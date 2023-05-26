@@ -22,7 +22,9 @@ class TopStoreResource extends Resource
 {
     protected static ?string $model = TopStore::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-sort-ascending';
+
+    protected static ?string $navigationGroup = 'Stores Management';
 
     public static function form(Form $form): Form
     {
