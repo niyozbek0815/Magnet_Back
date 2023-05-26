@@ -1,27 +1,25 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\UserResource\RelationManagers;
 
 use stdClass;
 use Filament\Forms;
 use Filament\Tables;
-use App\Models\ClientAdres;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
-use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\ClientAdresResource\Pages;
-use App\Filament\Resources\ClientAdresResource\RelationManagers;
+use Filament\Resources\RelationManagers\RelationManager;
 
-class ClientAdresResource extends Resource
+class AdressRelationManager extends RelationManager
 {
-    protected static ?string $model = ClientAdres::class;
+    protected static string $relationship = 'adress';
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $recordTitleAttribute = 'viloyat';
 
     public static function form(Form $form): Form
     {
@@ -47,7 +45,7 @@ class ClientAdresResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('index')->getStateUsing(
+                Tables\Columns\TextColumn::make('index')->label('№')->getStateUsing(
                     static function (stdClass $rowLoop, HasTable $livewire): string {
                         return (string) (
                             $rowLoop->iteration +
@@ -63,32 +61,21 @@ class ClientAdresResource extends Resource
                 Tables\Columns\TextColumn::make('maxalla')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('pochta')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()->date('s:m:Y'),
-            ])
+                    ->dateTime()->date('s:m:Y'),            ])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
             ])
+            ->actions([
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ]), ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListClientAdres::route('/'),
-            'create' => Pages\CreateClientAdres::route('/create'),
-            'edit' => Pages\EditClientAdres::route('/{record}/edit'),
-        ];
     }
 }
