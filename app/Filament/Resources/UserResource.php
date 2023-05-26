@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\Pages\EditUser;
 use App\Filament\Resources\UserResource\Pages\CreateUser;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\UserResource\RelationManagers\AdressRelationManager;
+use App\Filament\Resources\UserResource\RelationManagers\ClientAdresRelationManager;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
@@ -99,7 +101,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            AdressRelationManager::class
         ];
     }
 
