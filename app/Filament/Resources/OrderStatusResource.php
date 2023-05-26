@@ -2,17 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\OrderStatusResource\Pages;
-use App\Filament\Resources\OrderStatusResource\RelationManagers;
-use App\Models\OrderStatus;
 use Filament\Forms;
-use Filament\Forms\Components\Card;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use App\Models\OrderStatus;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Card;
+use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\OrderStatusResource\Pages;
+use App\Filament\Resources\OrderStatusResource\RelationManagers;
 
 class OrderStatusResource extends Resource
 {
@@ -50,16 +51,17 @@ class OrderStatusResource extends Resource
                 Tables\Columns\TextColumn::make('name_en'),
                 Tables\Columns\TextColumn::make('name_ru'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()->date('d:m:Y'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ]),            ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
