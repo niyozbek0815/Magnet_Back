@@ -9,7 +9,10 @@ use Filament\Resources\Pages\EditRecord;
 class EditTopProductSettings extends EditRecord
 {
     protected static string $resource = TopProductSettingsResource::class;
-
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
     protected function getActions(): array
     {
         return [

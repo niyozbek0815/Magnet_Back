@@ -76,7 +76,7 @@ class ProductsResource extends Resource
                 Tables\Columns\TextColumn::make('id')->label('Product ID')->sortable(),
                 SpatieMediaLibraryImageColumn::make('images'),
                 Tables\Columns\TextColumn::make('name')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('categories.name')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('categories.name_uz')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('stores.name')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('price'),
                 Tables\Columns\TextColumn::make('sale'),
