@@ -22,7 +22,9 @@ class TopProductResource extends Resource
 {
     protected static ?string $model = TopProduct::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-view-grid';
+
+    protected static ?string $navigationGroup = 'Category & Product Management';
 
     public static function form(Form $form): Form
     {
