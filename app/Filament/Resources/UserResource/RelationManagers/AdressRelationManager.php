@@ -10,6 +10,7 @@ use Filament\Resources\Table;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -44,7 +45,7 @@ class AdressRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('index')->getStateUsing(
+                Tables\Columns\TextColumn::make('index')->label('№')->getStateUsing(
                     static function (stdClass $rowLoop, HasTable $livewire): string {
                         return (string) (
                             $rowLoop->iteration +
@@ -68,9 +69,11 @@ class AdressRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ])
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ]), ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
