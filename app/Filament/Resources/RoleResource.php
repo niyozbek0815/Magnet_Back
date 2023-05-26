@@ -44,7 +44,7 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('index')->getStateUsing(
+                TextColumn::make('index')->label('№')->getStateUsing(
                     static function (stdClass $rowLoop, HasTable $livewire): string {
                         return (string) (
                             $rowLoop->iteration +

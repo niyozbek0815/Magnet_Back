@@ -63,7 +63,7 @@ class ProductsResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('index')->getStateUsing(
+                TextColumn::make('index')->label('№')->getStateUsing(
                     static function (stdClass $rowLoop, HasTable $livewire): string {
                         return (string) (
                             $rowLoop->iteration +
@@ -73,6 +73,7 @@ class ProductsResource extends Resource
                         );
                     }
                 )->sortable(),
+                Tables\Columns\TextColumn::make('id')->label('Product ID')->sortable(),
                 SpatieMediaLibraryImageColumn::make('images'),
                 Tables\Columns\TextColumn::make('name')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('categories.name')->searchable()->sortable(),

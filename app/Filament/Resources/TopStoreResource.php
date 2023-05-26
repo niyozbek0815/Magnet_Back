@@ -24,7 +24,7 @@ class TopStoreResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-sort-ascending';
 
-    protected static ?string $navigationGroup = 'Stores Management';
+    protected static ?string $navigationGroup = 'Advertising Management';
 
     public static function form(Form $form): Form
     {
@@ -41,7 +41,7 @@ class TopStoreResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('index')->getStateUsing(
+                TextColumn::make('index')->label('№')->getStateUsing(
                     static function (stdClass $rowLoop, HasTable $livewire): string {
                         return (string) (
                             $rowLoop->iteration +
