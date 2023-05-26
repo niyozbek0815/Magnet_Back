@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use stdClass;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\ClientAdres;
@@ -9,6 +10,8 @@ use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Contracts\HasTable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ClientAdresResource\Pages;
@@ -44,15 +47,23 @@ class ClientAdresResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name'),
-                Tables\Columns\TextColumn::make('viloyat'),
-                Tables\Columns\TextColumn::make('tuman'),
-                Tables\Columns\TextColumn::make('maxalla'),
-                Tables\Columns\TextColumn::make('pochta'),
+                TextColumn::make('index')->getStateUsing(
+                    static function (stdClass $rowLoop, HasTable $livewire): string {
+                        return (string) (
+                            $rowLoop->iteration +
+                            ($livewire->tableRecordsPerPage * (
+                                $livewire->page - 1
+                            ))
+                        );
+                    }
+                ),
+                Tables\Columns\TextColumn::make('user.name')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('viloyat')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('tuman')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('maxalla')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('pochta')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()->date('s:m:Y'),
             ])
             ->filters([
                 //
