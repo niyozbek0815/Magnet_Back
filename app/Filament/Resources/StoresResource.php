@@ -19,7 +19,9 @@ use App\Filament\Resources\StoresResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use App\Filament\Resources\StoresResource\RelationManagers;
+use App\Filament\Resources\StoresResource\RelationManagers\ProductsRelationManager;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\TextInput;
 
 class StoresResource extends Resource
 {
@@ -97,7 +99,7 @@ class StoresResource extends Resource
     public static function getRelations(): array
     {
         return [
-
+            ProductsRelationManager::class,
         ];
     }
 
