@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\OrderProductsResource\Pages;
-use App\Filament\Resources\OrderProductsResource\RelationManagers;
-use App\Models\OrderProducts;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Resources\Form;
+use App\Models\OrderProducts;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\OrderProductsResource\Pages;
+use App\Filament\Resources\OrderProductsResource\RelationManagers;
 
 class OrderProductsResource extends Resource
 {
@@ -23,12 +25,13 @@ class OrderProductsResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('orders_id')
-                    ->required(),
-                Forms\Components\TextInput::make('products_id')
-                    ->required(),
-                Forms\Components\TextInput::make('sub_product_id'),
-                Forms\Components\TextInput::make('size_products_id'),
+                Select::make('orders_id')->preload()
+                ->relationship('orders', 'id')->required(),
+                Select::make('products_id')->preload()
+                ->relationship('products', 'name')->required(),
+
+                Forms\Components\TextInput::make('sub_product_id')->nullable(),
+            Forms\Components\TextInput::make('size_products_id')->nullable(),
                 Forms\Components\TextInput::make('price')
                     ->required(),
                 Forms\Components\TextInput::make('count')
@@ -39,24 +42,25 @@ class OrderProductsResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('orders_id'),
-                Tables\Columns\TextColumn::make('products_id'),
-                Tables\Columns\TextColumn::make('sub_product_id'),
-                Tables\Columns\TextColumn::make('size_products_id'),
-                Tables\Columns\TextColumn::make('price'),
-                Tables\Columns\TextColumn::make('count'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
+        ->columns([
+            Tables\Columns\TextColumn::make('orders.users.name')->searchable()->sortable(),
+            Tables\Columns\TextColumn::make('products.name')->searchable()->sortable(),
+            Tables\Columns\TextColumn::make('sizeproducts.name')->searchable()->sortable(),
+            Tables\Columns\TextColumn::make('subproducts.name')->searchable()->sortable(),
+            Tables\Columns\TextColumn::make('price')->searchable()->sortable(),
+            Tables\Columns\TextColumn::make('count')->searchable()->sortable(),
+        ])
+        ->filters([
+            //
+        ])
+
+        ->actions([
+            ActionGroup::make([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-            ])
+                Tables\Actions\DeleteAction::make(),
+            ]),
+        ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);

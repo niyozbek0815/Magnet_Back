@@ -7,6 +7,7 @@ use Filament\Tables;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -26,7 +27,7 @@ class OrderproductsRelationManager extends RelationManager
                 Select::make('products_id')->preload()
                 ->relationship('products', 'name')->required(),
 
-                Forms\Components\TextInput::make('sub_products_id')->nullable(),
+                Forms\Components\TextInput::make('sub_product_id')->nullable(),
             Forms\Components\TextInput::make('size_products_id')->nullable(),
                 Forms\Components\TextInput::make('price')
                     ->required(),
@@ -39,7 +40,7 @@ class OrderproductsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+
             ])
             ->filters([
                 //
@@ -48,9 +49,11 @@ class OrderproductsRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
