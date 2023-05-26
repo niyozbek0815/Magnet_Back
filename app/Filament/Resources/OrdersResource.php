@@ -49,7 +49,7 @@ class OrdersResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('index')->getStateUsing(
+                TextColumn::make('index')->label('№')->getStateUsing(
                     static function (stdClass $rowLoop, HasTable $livewire): string {
                         return (string) (
                             $rowLoop->iteration +
@@ -59,8 +59,9 @@ class OrdersResource extends Resource
                         );
                     }
                 ),
-                Tables\Columns\TextColumn::make('users_id'),
-                Tables\Columns\TextColumn::make('status_id'),
+                Tables\Columns\TextColumn::make('id')->label('Product ID'),
+                Tables\Columns\TextColumn::make('users.name'),
+                Tables\Columns\TextColumn::make('status.name_uz'),
                 Tables\Columns\TextColumn::make('order_count'),
                 Tables\Columns\TextColumn::make('summa'),
                 Tables\Columns\IconColumn::make('tolov')

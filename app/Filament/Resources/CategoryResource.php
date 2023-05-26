@@ -60,7 +60,7 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('id')->label('№')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('name_uz')->searchable()->sortable(),
                 SpatieMediaLibraryImageColumn::make('images'),
                 Tables\Columns\TextColumn::make('parents.id')->searchable()->sortable(),

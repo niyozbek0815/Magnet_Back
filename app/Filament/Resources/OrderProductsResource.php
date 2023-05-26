@@ -45,6 +45,7 @@ class OrderProductsResource extends Resource
     {
         return $table
         ->columns([
+            Tables\Columns\TextColumn::make('id')->label('№')->sortable(),
             Tables\Columns\TextColumn::make('orders.users.name')->searchable()->sortable(),
             Tables\Columns\TextColumn::make('products.name')->searchable()->sortable(),
             Tables\Columns\TextColumn::make('sizeproducts.name')->searchable()->sortable(),

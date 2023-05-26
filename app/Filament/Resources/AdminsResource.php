@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Forms\Components\CheckboxList;
 use App\Filament\Resources\AdminsResource\Pages;
+use App\Filament\Resources\AdminsResource\Pages\CreateAdmins;
+use App\Filament\Resources\AdminsResource\Pages\EditAdmins;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use App\Filament\Resources\AdminsResource\RelationManagers;
@@ -55,9 +57,9 @@ class AdminsResource extends Resource
                     ->password()->dehydrateStateUsing(static fn(null|string $state):
                     null|string=>
                     filled($state) ? Hash::make($state):null,)
-                    ->required(static fn(Page $livewire):string=>$livewire instanceof CreateAdmin)->minLength(7)
+                    ->required(static fn(Page $livewire):string=>$livewire instanceof CreateAdmins)->minLength(7)
                     ->dehydrated(static fn(null|string $state):bool=>filled($state))
-                    ->label(static fn(Page $livewire):string=>($livewire instanceof EditAdmin) ? 'New Password':'Password' ),
+                    ->label(static fn(Page $livewire):string=>($livewire instanceof EditAdmins) ? 'New Password':'Password' ),
 
                     Forms\Components\TextInput::make('hudud')
                         ->maxLength(255),
@@ -77,7 +79,7 @@ class AdminsResource extends Resource
     {
         return $table
         ->columns([
-            TextColumn::make('index')->getStateUsing(
+            TextColumn::make('index')->label('№')->getStateUsing(
                 static function (stdClass $rowLoop, HasTable $livewire): string {
                     return (string) (
                         $rowLoop->iteration +
