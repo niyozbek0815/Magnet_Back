@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ClientAdresResource\Pages;
-use App\Filament\Resources\ClientAdresResource\RelationManagers;
-use App\Models\ClientAdres;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use App\Models\ClientAdres;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ClientAdresResource\Pages;
+use App\Filament\Resources\ClientAdresResource\RelationManagers;
 
 class ClientAdresResource extends Resource
 {
@@ -23,8 +24,7 @@ class ClientAdresResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('users_id')
-                    ->required(),
+                Select::make('users_id')->preload()->relationship('user','name'),
                 Forms\Components\TextInput::make('viloyat')
                     ->required()
                     ->maxLength(255),
@@ -44,7 +44,7 @@ class ClientAdresResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('users_id'),
+                Tables\Columns\TextColumn::make('user.name'),
                 Tables\Columns\TextColumn::make('viloyat'),
                 Tables\Columns\TextColumn::make('tuman'),
                 Tables\Columns\TextColumn::make('maxalla'),
@@ -64,14 +64,14 @@ class ClientAdresResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -79,5 +79,5 @@ class ClientAdresResource extends Resource
             'create' => Pages\CreateClientAdres::route('/create'),
             'edit' => Pages\EditClientAdres::route('/{record}/edit'),
         ];
-    }    
+    }
 }

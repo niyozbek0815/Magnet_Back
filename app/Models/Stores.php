@@ -20,5 +20,9 @@ class Stores extends Model implements HasMedia
     {
         return $this->hasMany(Products::class);
     }
+    public function topstore()
+    {
+        return $this->hasMany(TopStore::class);
+    }
 
 }

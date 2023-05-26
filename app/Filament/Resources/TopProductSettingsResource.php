@@ -2,16 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TopProductSettingsResource\Pages;
-use App\Filament\Resources\TopProductSettingsResource\RelationManagers;
-use App\Models\TopProductSettings;
+use stdClass;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
+use App\Models\TopProductSettings;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\TopProductSettingsResource\Pages;
+use App\Filament\Resources\TopProductSettingsResource\RelationManagers;
 
 class TopProductSettingsResource extends Resource
 {
@@ -51,37 +55,45 @@ class TopProductSettingsResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('start'),
-                Tables\Columns\TextColumn::make('stop'),
-                Tables\Columns\TextColumn::make('name_uz'),
-                Tables\Columns\TextColumn::make('name_kr'),
-                Tables\Columns\TextColumn::make('name_en'),
-                Tables\Columns\TextColumn::make('name_ru'),
-                Tables\Columns\TextColumn::make('summa'),
-                Tables\Columns\TextColumn::make('continuity'),
+                TextColumn::make('index')->getStateUsing(
+                    static function (stdClass $rowLoop, HasTable $livewire): string {
+                        return (string) (
+                            $rowLoop->iteration +
+                            ($livewire->tableRecordsPerPage * (
+                                $livewire->page - 1
+                            ))
+                        );
+                    }
+                ),
+                Tables\Columns\TextColumn::make('name_uz')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('start')->sortable(),
+                Tables\Columns\TextColumn::make('stop')->sortable(),
+                Tables\Columns\TextColumn::make('summa')->sortable(),
+                Tables\Columns\TextColumn::make('continuity')->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()->date('d:m:Y'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ]),            ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -89,5 +101,5 @@ class TopProductSettingsResource extends Resource
             'create' => Pages\CreateTopProductSettings::route('/create'),
             'edit' => Pages\EditTopProductSettings::route('/{record}/edit'),
         ];
-    }    
+    }
 }

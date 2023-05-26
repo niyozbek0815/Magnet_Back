@@ -60,5 +60,9 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Orders::class);
     }
+    public function adress()
+    {
+        return $this->hasMany(ClientAdres::class,'users_id');
+    }
 
 }

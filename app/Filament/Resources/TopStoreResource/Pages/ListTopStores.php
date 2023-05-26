@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\TopStoresResource\Pages;
+namespace App\Filament\Resources\TopStoreResource\Pages;
 
-use App\Filament\Resources\TopStoresResource;
+use App\Filament\Resources\TopStoreResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListTopStores extends ListRecords
 {
-    protected static string $resource = TopStoresResource::class;
+    protected static string $resource = TopStoreResource::class;
 
     protected function getActions(): array
     {
