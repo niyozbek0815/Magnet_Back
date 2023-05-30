@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('client_adres', function (Blueprint $table) {
+        Schema::create('order_tolovs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('users_id')->constrained()->onDelete('cascade');
-            $table->string('viloyat');
-            $table->string('tuman');
-            $table->string('maxalla');
-            $table->string('pochta');
-            $table->boolean('ststus')->default(false);
+           $table->unsignedBigInteger('orders_id');
+            $table->string('massa_tolov');
+            $table->string('tolov');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
-}
+    }
 
 
     /**
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('client_adres');
+        Schema::dropIfExists('order_tolovs');
     }
 };
