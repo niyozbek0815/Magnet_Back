@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('tashkent_dastavka');
             $table->string('region_dastavka');
-            $table->string('product_percentage');
+            $table->integer('product_percentage');
             $table->timestamps();
         });
     }
