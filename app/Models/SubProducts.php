@@ -12,12 +12,19 @@ class SubProducts extends Model implements HasMedia
 {
     use InteractsWithMedia, HasFactory;
 protected $fillable=['products_id','name','price','image'];
+
     public function products()
     {
         return $this->belongsTo(Products::class);
     }
+
     public function orderproducts()
     {
         return $this->hasMany(OrderProducts::class);
+    }
+
+    public function mass()
+    {
+        return $this->hasMany(Mass::class);
     }
 }

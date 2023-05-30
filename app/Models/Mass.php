@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Mass extends Model
 {
@@ -17,4 +18,14 @@ class Mass extends Model
       'size_product',
       'mass'
     ];
+
+    public function product(): BelongsTo
+    {
+      return $this->belongsTo(Products::class);
+    }
+
+    public function sub_product(): BelongsTo
+    {
+      return $this->belongsTo(SubProducts::class);
+    }
 }

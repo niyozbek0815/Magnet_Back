@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->foreignId('sub_product_id')->constrained()->onDelete('cascade');
-            $table->string('size_product');
-            $table->string('mass');
+            $table->integer('size_product');
+            $table->integer('mass');
             $table->timestamps();
         });
     }
