@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+
+class Language extends Model implements HasMedia
+{
+    use HasFactory, InteractsWithMedia;
+
+    protected $table = 'languages';
+
+    protected $fillable = [
+      'name',
+      'flag_image'
+    ];
+}
