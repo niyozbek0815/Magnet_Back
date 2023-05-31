@@ -29,6 +29,8 @@ class KuryerResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?string $navigationGroup = 'Kuryer Management';
+
     public static function form(Form $form): Form
     {
         return $form

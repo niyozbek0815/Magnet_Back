@@ -25,7 +25,7 @@ class KuryerOrder extends Model
         return $this->belongsTo(Kuryer::class);
     }
 
-    public function orders(): BelongsTo
+    public function order(): BelongsTo
     {
         return $this->belongsTo(Orders::class);
     }

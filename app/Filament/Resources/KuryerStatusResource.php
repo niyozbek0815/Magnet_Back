@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MagnetSettingsResource\Pages;
-use App\Filament\Resources\MagnetSettingsResource\RelationManagers;
-use App\Models\MagnetSetting;
+use App\Filament\Resources\KuryerStatusResource\Pages;
+use App\Filament\Resources\KuryerStatusResource\RelationManagers;
+use App\Models\KuryerStatus;
 use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
@@ -20,34 +20,39 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use stdClass;
 
-class MagnetSettingsResource extends Resource
+class KuryerStatusResource extends Resource
 {
-    protected static ?string $model = MagnetSetting::class;
+    protected static ?string $model = KuryerStatus::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-cog';
+    protected static ?string $navigationIcon = 'heroicon-o-collection';
 
-    protected static ?string $navigationGroup = 'Settings Management';
+    protected static ?string $navigationGroup = 'Kuryer Management';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Card::make()
-                ->schema([
-                    TextInput::make('tashkent_dastavka')
+                Card::make()->schema([
+                    TextInput::make('name_uz')
                     ->reactive()
                     ->afterStateUpdated(function (Closure $set, $state) {
                         $set('slug', Str::slug($state));
                     })->required(),
-
-                    TextInput::make('region_dastavka')
-                                ->required()
-                                ->maxLength(255),
-
-                    TextInput::make('product_percentage')
-                                ->required()
-                                ->maxLength(255),
-    
+                    TextInput::make('name_ru')
+                    ->reactive()
+                    ->afterStateUpdated(function (Closure $set, $state) {
+                        $set('slug', Str::slug($state));
+                    })->required(),
+                    TextInput::make('name_kr')
+                    ->reactive()
+                    ->afterStateUpdated(function (Closure $set, $state) {
+                        $set('slug', Str::slug($state));
+                    })->required(),
+                    TextInput::make('name_en')
+                    ->reactive()
+                    ->afterStateUpdated(function (Closure $set, $state) {
+                        $set('slug', Str::slug($state));
+                    })->required(),
                 ])
             ]);
     }
@@ -56,7 +61,7 @@ class MagnetSettingsResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('index')->label('№')->getStateUsing(
+                TextColumn::make('Index')->label('№')->getStateUsing(
                     static function (stdClass $rowLoop, HasTable $livewire): string {
                         return (string) (
                             $rowLoop->iteration +
@@ -66,9 +71,10 @@ class MagnetSettingsResource extends Resource
                         );
                     }
                 ),
-                Tables\Columns\TextColumn::make('tashkent_dastavka')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('region_dastavka')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('product_percentage')->searchable()->sortable(),
+                TextColumn::make('name_uz')->sortable()->searchable(),
+                TextColumn::make('name_ru')->sortable()->searchable(),
+                TextColumn::make('name_kr')->sortable()->searchable(),
+                TextColumn::make('name_en')->sortable()->searchable(),
             ])
             ->filters([
                 //
@@ -92,9 +98,9 @@ class MagnetSettingsResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListMagnetSettings::route('/'),
-            'create' => Pages\CreateMagnetSettings::route('/create'),
-            'edit' => Pages\EditMagnetSettings::route('/{record}/edit'),
+            'index' => Pages\ListKuryerStatuses::route('/'),
+            'create' => Pages\CreateKuryerStatus::route('/create'),
+            'edit' => Pages\EditKuryerStatus::route('/{record}/edit'),
         ];
     }    
 }

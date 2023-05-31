@@ -28,7 +28,7 @@ class KuryerProduct extends Model
         return $this->belongsTo(Kuryer::class);
     }
 
-    public function products(): BelongsTo
+    public function product(): BelongsTo
     {
         return $this->belongsTo(Products::class);
     }
@@ -43,7 +43,7 @@ class KuryerProduct extends Model
         return $this->belongsTo(Stores::class);
     }
 
-    public function kuryer_status()
+    public function status()
     {
         return $this->belongsTo(KuryerStatus::class);
     }
