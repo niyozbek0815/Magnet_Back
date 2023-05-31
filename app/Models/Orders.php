@@ -19,7 +19,7 @@ class Orders extends Model
     }
     public function tolov()
     {
-        return $this->hasMany(OrderTolov::class);
+        return $this->hasOne(OrderTolov::class);
     }
     public function users()
     {

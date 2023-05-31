@@ -62,8 +62,10 @@ class OrdersResource extends Resource
                 Tables\Columns\TextColumn::make('status.name_uz')->sortable(),
                 Tables\Columns\TextColumn::make('adress.viloyat')->sortable(),
                 Tables\Columns\TextColumn::make('order_count')->sortable(),
-                Tables\Columns\TextColumn::make('summa')->sortable(),
-                Tables\Columns\IconColumn::make('tolov')->sortable()
+                Tables\Columns\TextColumn::make('tolov.tolov')->sortable()->label('Products tolov'),
+                Tables\Columns\TextColumn::make('tolov.massa_tolov')->sortable()->label('Yetkazib berish'),
+
+                Tables\Columns\IconColumn::make('tolov.status')->sortable()->label('Tolov statusi')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()->date('d:m:Y'),
