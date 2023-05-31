@@ -23,4 +23,14 @@ class Kuryer extends Model
     {
       return $this->hasMany(KuryerDistrict::class);
     }
+
+    public function kuryer_orders(): HasMany
+    {
+      return $this->hasMany(KuryerOrder::class);
+    }
+
+    public function kuryer_products(): HasMany
+    {
+      return $this->hasMany(KuryerProduct::class);
+    }
 }

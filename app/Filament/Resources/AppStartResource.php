@@ -40,7 +40,7 @@ class AppStartResource extends Resource
                         Forms\Components\TextInput::make('order')->default(0)
                         ->maxLength(255),
                         
-                    SpatieMediaLibraryFileUpload::make('images'),
+                    SpatieMediaLibraryFileUpload::make('image'),
                 ])
             ]);
     }
@@ -62,7 +62,7 @@ class AppStartResource extends Resource
                 Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('text')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('order')->sortable(),
-                SpatieMediaLibraryImageColumn::make('images'),
+                SpatieMediaLibraryImageColumn::make('image'),
             ])
             ->filters([
                 //

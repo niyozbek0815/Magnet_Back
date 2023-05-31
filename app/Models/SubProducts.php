@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class SubProducts extends Model implements HasMedia
 {
     use InteractsWithMedia, HasFactory;
-protected $fillable=['products_id','name','price','image'];
+
+    protected $fillable=['products_id','name','price','image'];
 
     public function products()
     {
@@ -26,5 +27,10 @@ protected $fillable=['products_id','name','price','image'];
     public function mass()
     {
         return $this->hasMany(Mass::class);
+    }
+
+    public function kuryer_products()
+    {
+        return $this->hasMany(KuryerProduct::class);
     }
 }
