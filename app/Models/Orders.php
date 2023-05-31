@@ -15,16 +15,14 @@ class Orders extends Model
     {
         return $this->hasMany(OrderProducts::class);
     }
-<<<<<<< HEAD
+
     public function adress()
     {
         return $this->belongsTo(ClientAdres::class,'id');
     }
-    public function tolov()
-    {
-=======
+
+
     public function tolov(){
->>>>>>> 5a98544ff01caa1f5cd4c7d3938943d2b8ba3f15
         return $this->hasOne(OrderTolov::class);
     }
     public function users()
