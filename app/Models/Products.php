@@ -49,4 +49,9 @@ class Products extends Model implements HasMedia
     {
         return $this->hasMany(Mass::class);
     }
+
+    public function kuryer_product(): HasMany
+    {
+        return $this->hasMany(KuryerProduct::class);
+    }
 }

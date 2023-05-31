@@ -4,29 +4,46 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Orders extends Model
 {
-    protected $fillable=['users_id','status_id','adress_id','order_count','summa','tolov'];
+    protected $fillable=['users_id','status_id','order_count','summa','tolov'];
     use HasFactory;
+
     public function orderproducts()
     {
         return $this->hasMany(OrderProducts::class);
     }
+<<<<<<< HEAD
     public function adress()
     {
         return $this->belongsTo(ClientAdres::class,'id');
     }
     public function tolov()
     {
+=======
+    public function tolov(){
+>>>>>>> 5a98544ff01caa1f5cd4c7d3938943d2b8ba3f15
         return $this->hasOne(OrderTolov::class);
     }
     public function users()
     {
         return $this->belongsTo(User::class);
     }
+
     public function status()
     {
         return $this->belongsTo(OrderStatus::class);
+    }
+
+    public function kuryer_order()
+    {
+        return $this->hasMany(KuryerOrder::class);
+    }
+
+    public function kuryer_products(): HasMany
+    {
+        return $this->hasMany(KuryerProduct::class);
     }
 }

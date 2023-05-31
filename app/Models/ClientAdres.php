@@ -4,17 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ClientAdres extends Model
 {
     use HasFactory;
-    protected $fillable=['users_id','viloyat','tuman','maxalla','pochta', 'status'];
+    protected $fillable=['users_id','viloyat','tuman','maxalla','pochta'];
     public function user()
     {
         return $this->belongsTo(User::class,'users_id');
     }
     public function order()
     {
-        return $this->hasMany(Orders::class,'adress_id');
+        return $this->HasMany(Orders::class,'adress_id');
     }
 }
