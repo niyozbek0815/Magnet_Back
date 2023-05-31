@@ -15,6 +15,9 @@ class Orders extends Model
     {
         return $this->hasMany(OrderProducts::class);
     }
+    public function tolov(){
+        return $this->hasOne(OrderTolov::class);
+    }
     public function users()
     {
         return $this->belongsTo(User::class);
