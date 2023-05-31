@@ -8,6 +8,7 @@ use Filament\Tables;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Actions\ActionGroup;
@@ -38,6 +39,7 @@ class AdressRelationManager extends RelationManager
                 Forms\Components\TextInput::make('pochta')
                     ->required()
                     ->maxLength(255),
+                Toggle::make('status')->required(),
             ]);
     }
 
@@ -59,9 +61,11 @@ class AdressRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('viloyat')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('tuman')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('maxalla')->searchable()->sortable(),
+                Tables\Columns\IconColumn::make('status')->boolean(),
                 Tables\Columns\TextColumn::make('pochta')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()->date('s:m:Y'),            ])
+                    ->dateTime()->date('s:m:Y'),
+                    ])
             ->filters([
                 //
             ])

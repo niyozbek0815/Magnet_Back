@@ -16,9 +16,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('users_id');
             $table->unsignedBigInteger('status_id');
+            $table->unsignedBigInteger('adress_id');
             $table->string('order_count')->nullable();
-            $table->string('summa')->default(0);
-            $table->boolean('tolov')->default(false);
             $table->timestamps();
         });
     }

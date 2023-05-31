@@ -2,11 +2,14 @@
 
 namespace App\Filament\Resources\OrdersResource\RelationManagers;
 
+use stdClass;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Actions\ActionGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -40,6 +43,19 @@ class OrderproductsRelationManager extends RelationManager
     {
         return $table
             ->columns([
+                TextColumn::make('index')->label('№')->getStateUsing(
+                    static function (stdClass $rowLoop, HasTable $livewire): string {
+                        return (string) (
+                            $rowLoop->iteration +
+                            ($livewire->tableRecordsPerPage * (
+                                $livewire->page - 1
+                            ))
+                        );
+                    }
+                )->sortable(),
+                Tables\Columns\TextColumn::make('products.name')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('count')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('price')->searchable()->sortable(),
 
             ])
             ->filters([

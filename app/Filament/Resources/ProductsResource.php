@@ -53,7 +53,7 @@ class ProductsResource extends Resource
                         ->maxLength(255),
                     Forms\Components\TextInput::make('stars')->default(0)
                         ->maxLength(255),
-                SpatieMediaLibraryFileUpload::make('images')->multiple() ->maxFiles(5),
+                    SpatieMediaLibraryFileUpload::make('images')->multiple() ->maxFiles(5),
 
                 ])
             ]);
