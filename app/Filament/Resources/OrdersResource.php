@@ -18,6 +18,7 @@ use App\Filament\Resources\OrdersResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\OrdersResource\RelationManagers;
 use App\Filament\Resources\OrdersResource\RelationManagers\OrderproductsRelationManager;
+use App\Filament\Resources\OrdersResource\RelationManagers\TolovRelationManager;
 
 class OrdersResource extends Resource
 {
@@ -31,17 +32,14 @@ class OrdersResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('user_id')->preload()
+                Select::make('users_id')->preload()
                 ->relationship('users', 'name')->required(),
                 Select::make('status_id')->preload()
                 ->relationship('status', 'name_uz')->required(),
+                Select::make('adress_id')->preload()
+                ->relationship('adress', 'viloyat')->required(),
                 Forms\Components\TextInput::make('order_count')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('summa')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('tolov')
-                    ->required()
             ]);
     }
 
@@ -58,18 +56,17 @@ class OrdersResource extends Resource
                             ))
                         );
                     }
-                ),
-                Tables\Columns\TextColumn::make('id')->label('Product ID'),
-                Tables\Columns\TextColumn::make('users.name'),
-                Tables\Columns\TextColumn::make('status.name_uz'),
-                Tables\Columns\TextColumn::make('order_count'),
-                Tables\Columns\TextColumn::make('summa'),
-                Tables\Columns\IconColumn::make('tolov')
+                )->sortable(),
+                Tables\Columns\TextColumn::make('id')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('users.name')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('status.name_uz')->sortable(),
+                Tables\Columns\TextColumn::make('adress.viloyat')->sortable(),
+                Tables\Columns\TextColumn::make('order_count')->sortable(),
+                Tables\Columns\TextColumn::make('summa')->sortable(),
+                Tables\Columns\IconColumn::make('tolov')->sortable()
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                    ->dateTime()->date('d:m:Y'),
             ])
             ->filters([
                 //
@@ -88,7 +85,8 @@ class OrdersResource extends Resource
     public static function getRelations(): array
     {
         return [
-            OrderproductsRelationManager::class
+            OrderproductsRelationManager::class,
+            TolovRelationManager::class
         ];
     }
 

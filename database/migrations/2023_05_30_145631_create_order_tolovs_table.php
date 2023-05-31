@@ -16,7 +16,7 @@ return new class extends Migration
            $table->unsignedBigInteger('orders_id');
             $table->string('massa_tolov');
             $table->string('tolov');
-            $table->boolean('status')->default(false);
+            $table->string('status');
             $table->timestamps();
         });
     }

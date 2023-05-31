@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('tuman');
             $table->string('maxalla');
             $table->string('pochta');
-            $table->boolean('ststus')->default(false);
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
 }
