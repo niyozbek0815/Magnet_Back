@@ -33,4 +33,8 @@ class SubProducts extends Model implements HasMedia
     {
         return $this->hasMany(KuryerProduct::class);
     }
+    public function atributes()
+    {
+        return $this->hasMany(Atributes::class);
+    }
 }

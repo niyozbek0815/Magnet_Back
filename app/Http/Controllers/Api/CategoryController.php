@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Category;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -13,7 +13,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-       return Category::all();
+        return Category::where('parent_id',null)->get();
+
+    }
+    public function catproduct(Category $category)
+    {
+        //
     }
 
     /**
@@ -29,7 +34,7 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Category::with('parents')->find($id);
     }
 
     /**

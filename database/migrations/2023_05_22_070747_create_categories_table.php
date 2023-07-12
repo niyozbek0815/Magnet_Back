@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name_kr');
             $table->string('name_ru');
             $table->string('name_en');
+            $table->string('index');
             $table->string('slug')->unique();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade');

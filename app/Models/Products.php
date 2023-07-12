@@ -13,8 +13,8 @@ use function PHPUnit\Framework\returnCallback;
 class Products extends Model implements HasMedia
 {
     use InteractsWithMedia, HasFactory;
-    protected $fillable=['categories_id','stores_id','name','description','price','sale','count','count_review','stars'];
-   
+    protected $fillable=['id','categories_id','stores_id','name','description','price','sale','count','count_review','stars'];
+
     public function subproducts()
     {
         return $this->hasMany(SubProducts::class);
@@ -53,5 +53,9 @@ class Products extends Model implements HasMedia
     public function kuryer_product(): HasMany
     {
         return $this->hasMany(KuryerProduct::class);
+    }
+    public function atributes()
+    {
+        return $this->hasMany(Atributes::class);
     }
 }
